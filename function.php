@@ -50,13 +50,13 @@ function del_list($stt, $conn)
 
 function order_list($column,$id,$conn)
 {
-    $query = 'select * from to_do_list where id=? order by '.$column;
-    $exec = $conn->prepare($query);
-    $exec->bind_param('i', $id);
-    $exec->execute();
-    $result = $exec->get_result();
+    $query = "select * from to_do_list where id=$id order by $column";
+    $result = $conn->query($query);
+    if ($result === false) {
+        die('Error in executing the query: ' . $conn->error);
+    }   
     return $result->fetch_all(MYSQLI_ASSOC);
-}
+}   
 
 function edit_list($update, $stt, $conn)
 {
