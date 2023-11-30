@@ -3,9 +3,10 @@ include('function.php');
 include 'connect.php';
 mysqli_set_charset($conn, "utf8");
 session_start();
-if ((string)$_SESSION['loged'] === '1') {
+if ((string)$_SESSION['loged'] === '1' && isset($_GET['username'])) {
     $id = $_SESSION['id'];
     $infor = get_list($id, $conn);
+    $username = $_GET['username'];
 } else die(header('Location: login.php'));
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -44,7 +45,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'ok') {
 <body>
     <div class="page">
         <div class="head">
-            <h2>To do list</h2>
+            <h2>Todolist <?= $username ?></h2>
             <a href="logout.php">
                 <button>Logout</button>
             </a>

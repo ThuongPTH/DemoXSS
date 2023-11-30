@@ -19,7 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($infor['password'] === md5($password)) {
             $_SESSION['loged'] = true;
             $_SESSION['id'] = $infor['id'];
-            die(header('Location: admin.php'));
+	        $_SESSION['username'] = $username;
+            $url = 'admin.php?username='.$username;
+            die(header('Location: '.$url));
         } else die(header('Location: login.php'));
     }
 }
