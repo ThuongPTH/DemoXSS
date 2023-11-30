@@ -48,6 +48,16 @@ function del_list($stt, $conn)
     return $exec->affected_rows;
 }
 
+function order_list($column,$id,$conn)
+{
+    $query = 'select * from to_do_list where id=? order by '.$column;
+    $exec = $conn->prepare($query);
+    $exec->bind_param('i', $id);
+    $exec->execute();
+    $result = $exec->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
 function edit_list($update, $stt, $conn)
 {
     $query = 'update to_do_list set task=? WHERE stt=?';
